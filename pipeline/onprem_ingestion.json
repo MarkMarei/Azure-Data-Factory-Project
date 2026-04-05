@@ -8,6 +8,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.files",
+						"type": "Expression"
+					},
 					"isSequential": false,
 					"activities": [
 						{
@@ -48,44 +52,6 @@
 								"enableStaging": false,
 								"translator": {
 									"type": "TabularTranslator",
-									"mappings": [
-										{
-											"source": {
-												"name": "airline_id",
-												"type": "String",
-												"physicalType": "String"
-											},
-											"sink": {
-												"name": "airline_id",
-												"type": "String",
-												"physicalType": "UTF8"
-											}
-										},
-										{
-											"source": {
-												"name": "airline_name",
-												"type": "String",
-												"physicalType": "String"
-											},
-											"sink": {
-												"name": "airline_name",
-												"type": "String",
-												"physicalType": "UTF8"
-											}
-										},
-										{
-											"source": {
-												"name": "country",
-												"type": "String",
-												"physicalType": "String"
-											},
-											"sink": {
-												"name": "country",
-												"type": "String",
-												"physicalType": "UTF8"
-											}
-										}
-									],
 									"typeConversion": true,
 									"typeConversionSettings": {
 										"allowDataTruncation": true,
@@ -96,13 +62,25 @@
 							"inputs": [
 								{
 									"referenceName": "ds_onprem_src_param",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"p_file_name": {
+											"value": "@item().filename",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
 								{
 									"referenceName": "ds_onpremsink_csv",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"p_filename": {
+											"value": "@item().filename",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
@@ -110,6 +88,22 @@
 				}
 			}
 		],
+		"parameters": {
+			"files": {
+				"type": "array",
+				"defaultValue": [
+					{
+						"filename": "DimAirline.csv"
+					},
+					{
+						"filename": "DimFlight.csv"
+					},
+					{
+						"filename": "DimPassenger.csv"
+					}
+				]
+			}
+		},
 		"annotations": []
 	}
 }
