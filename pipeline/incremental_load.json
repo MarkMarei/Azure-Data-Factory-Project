@@ -78,7 +78,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT * \nFROM dbo.@{pipeline().parameters.table} where booking_date > CAST('@{activity('Lookup1').output.firstRow.cdc_col}' AS DATE)",
+							"value": "SELECT * \nFROM dbo.FactBookings where booking_date > CAST('@{activity('Lookup1').output.firstRow.cdc_col}' AS DATE)",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -208,7 +208,7 @@
 						{
 							"type": "Query",
 							"text": {
-								"value": "SELECT MAX(booking_date) as cdc\nFROM @{pipeline().parameters.table}",
+								"value": "SELECT MAX(booking_date) as cdc\nFROM dbo.FactBookings",
 								"type": "Expression"
 							}
 						}
@@ -217,11 +217,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"table": {
-				"type": "string"
-			}
-		},
 		"variables": {
 			"current_date": {
 				"type": "String"
