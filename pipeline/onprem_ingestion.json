@@ -3,98 +3,111 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "MigrateOnPremFile",
-				"type": "Copy",
+				"name": "ForEachFile",
+				"type": "ForEach",
 				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 2,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "FileServerReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
-					},
-					"sink": {
-						"type": "ParquetSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
-						},
-						"formatSettings": {
-							"type": "ParquetWriteSettings"
-						}
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "MigrateOnPremFile",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 2,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
 								"source": {
-									"name": "airline_id",
-									"type": "String",
-									"physicalType": "String"
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "FileServerReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
 								},
 								"sink": {
-									"name": "airline_id",
-									"type": "String",
-									"physicalType": "UTF8"
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"name": "airline_id",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "airline_id",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "airline_name",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "airline_name",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "country",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "country",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										}
+									],
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
 								}
 							},
-							{
-								"source": {
-									"name": "airline_name",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "airline_name",
-									"type": "String",
-									"physicalType": "UTF8"
+							"inputs": [
+								{
+									"referenceName": "ds_onprem_src_param",
+									"type": "DatasetReference"
 								}
-							},
-							{
-								"source": {
-									"name": "country",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "country",
-									"type": "String",
-									"physicalType": "UTF8"
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_onpremsink_csv",
+									"type": "DatasetReference"
 								}
-							}
-						],
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
+							]
 						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "ds_onprem_src_param",
-						"type": "DatasetReference"
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "ds_onprem_file",
-						"type": "DatasetReference"
-					}
-				]
+					]
+				}
 			}
 		],
 		"annotations": []
