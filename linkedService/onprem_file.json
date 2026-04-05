@@ -1,0 +1,17 @@
+{
+	"name": "onprem_file",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "FileServer",
+		"typeProperties": {
+			"host": "C:\\adf_data",
+			"userId": "Mark",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0ZDkxZDlhNi03ZGRiLTRkMmEtODIxYi0zM2Y5OGQyMjAxM2MiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "SelfHosted",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
