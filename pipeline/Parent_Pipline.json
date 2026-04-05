@@ -60,7 +60,7 @@
 				}
 			},
 			{
-				"name": "Execute Pipeline1",
+				"name": "ExecuteIncremental",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
