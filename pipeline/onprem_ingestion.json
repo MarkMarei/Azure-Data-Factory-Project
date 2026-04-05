@@ -27,14 +27,12 @@
 						}
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
+						"type": "ParquetSink",
 						"storeSettings": {
 							"type": "AzureBlobFSWriteSettings"
 						},
 						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
+							"type": "ParquetWriteSettings"
 						}
 					},
 					"enableStaging": false,
@@ -93,7 +91,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_onpremsink_csv",
+						"referenceName": "ds_onprem_file",
 						"type": "DatasetReference"
 					}
 				]
