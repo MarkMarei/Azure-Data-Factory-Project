@@ -83,7 +83,7 @@
 				}
 			},
 			{
-				"name": "Send Email",
+				"name": "Failure Alerts",
 				"type": "WebActivity",
 				"dependsOn": [
 					{
