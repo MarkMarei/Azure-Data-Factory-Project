@@ -81,6 +81,34 @@
 					},
 					"waitOnCompletion": true
 				}
+			},
+			{
+				"name": "Send Email",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "ExecuteIncremental",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://prod-18.uaenorth.logic.azure.com:443/workflows/932c9c34a255442da6ba810875fd6d72/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=9I5xOkoMikaAsgHhFgx2r3F588eh6sytdbHyR0Xz3Os",
+					"body": {
+						"value": "@concat(\n'{',\n'\"pipeline_name\":\"', pipeline().Pipeline, '\",',\n'\"pipeline_id\":\"', activity('ExecuteIncremental').output.pipelineRunId, '\",',\n'\"status\":\"', activity('ExecuteIncremental').Status, '\",',\n'\"error\":\"', if(\n    equals(activity('ExecuteIncremental').Status, 'Failed'),\n    activity('ExecuteIncremental').error.message,\n    'No Error'\n), '\"',\n'}'\n)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
