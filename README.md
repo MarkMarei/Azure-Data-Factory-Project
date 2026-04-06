@@ -40,6 +40,9 @@ This ensures a **streamlined and reliable ETL process**.
 ### Incremental Load Pipeline
 ![Parent Pipeline Execution](https://github.com/MarkMarei/Azure-Data-Factory-Project/blob/830bf9eef22bcc3cd55c3c72f3e56c59fbd5a07f/Incremental.png)
 
+### ON Prem Imgestion
+![Parent Pipeline Execution](https://github.com/MarkMarei/Azure-Data-Factory-Project/blob/8638a10974b8105ad5cc74ee1c86cd59d860611f/Dynamic%20onprem%20Ingestion.png)
+
 ---
 
 ## Error Notifications
