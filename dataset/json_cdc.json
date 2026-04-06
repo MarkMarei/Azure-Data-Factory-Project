@@ -1,0 +1,22 @@
+{
+	"name": "json_cdc",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DataLake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "empty.json",
+				"folderPath": "monitor",
+				"fileSystem": "bronze"
+			}
+		},
+		"schema": {
+			"type": "object"
+		}
+	}
+}
